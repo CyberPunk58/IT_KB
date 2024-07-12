@@ -5,16 +5,25 @@
     <title>{{ title }}</title>
 </head>
 <body>
+
+<ul>
+    <li><a href="{% url 'home' %}">Главная страница</a></li>
+</ul>
 <p>{{ menu|join:' | ' }}</p>
 <h1>{{ title }}</h1>
 
 <ul>
     {% for p in posts %}
+    {% if p.is_published %}
     <li>
         <h2>{{ p.title }}</h2>
         <p>{{ p.content }}</p>
+        <p><a href="{% url 'post' p.id %}">Скачать</a></p>
+        {% if not forloop.last%}
         <hr>
+        {% endif %}
     </li>
+    {% endif %}
     {% endfor %}
 </ul>
 
